@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {nodejs 'node'}
+    stages {
+        stage('Cloning repo'){
+            steps {
+                script {
+                    git branch: 'main',
+                    url: 'https://github.com/kaf212/M324-Code.git'
+                }
+            }
+        }
+        stage('Install jest-cli'){
+            steps {
+                sh 'npm install jest-cli -g'
+            }
+        }
+        stage('Install dependencies'){
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Test'){
+            steps {
+                sh 'npm test'
+            }
+        }
+    }
+}
